@@ -31,12 +31,12 @@ import utils.Utils
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun MainScreen(agentList: ArrayList<ValorantApiResponse.Data?>) {
+fun MainScreen(agentList: ArrayList<ValorantApiResponse.Data>) {
 
     Column(modifier = Modifier.fillMaxSize().background(Color.colorBackground).padding(16.dp)) {
         Spacer(modifier = Modifier.padding(0.dp, 16.dp))
         Text(
-            text = "Valogent", fontSize = 48.sp,
+            text = "ValoX", fontSize = 48.sp,
             fontWeight = FontWeight(800),
             color = Utils.hexToColor("FF4654")
         )
@@ -45,8 +45,7 @@ fun MainScreen(agentList: ArrayList<ValorantApiResponse.Data?>) {
         LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(0.dp)) {
             items(agentList.size) {
                 Box(modifier = Modifier.fillMaxSize().padding(8.dp).clickable {
-                    /*
-                             AgentsScreen(value = agentList,it)*/
+                   // showAgents(agentList,it)
                 }, contentAlignment = Alignment.BottomCenter) {
                     Image(
                         painter = painterResource("rectangle_1.xml"),
@@ -76,11 +75,14 @@ fun MainScreen(agentList: ArrayList<ValorantApiResponse.Data?>) {
                         }
                     }
                 }
-
-
             }
         }
     }
 
 
+}
+
+@Composable
+fun showAgents(agentList: ArrayList<ValorantApiResponse.Data?>, it: Int) {
+    AgentsScreen(value = agentList,it)
 }

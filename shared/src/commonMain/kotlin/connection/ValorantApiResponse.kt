@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ValorantApiResponse(
     @SerialName("data")
-    val `data`: ArrayList<Data?>?,
+    val `data`: ArrayList<Data>,
     @SerialName("status")
     val status: Int?
 ) {
