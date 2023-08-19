@@ -1,2 +1,5 @@
 # Valogent-ComposeMultiplatform
-This is a simple project which is built using Compose multiplatform
+This project is built using Compose multiplatform
+
+-> Showcases valorant agents 
+-> Platforms Supported : Android, Desktop, iOS, MacOS
