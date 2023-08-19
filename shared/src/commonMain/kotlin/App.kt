@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.navigator.Navigator
 import connection.ApiHelper
 import connection.ApiResult
 import connection.MainRepository
@@ -14,32 +15,34 @@ import connection.ValorantApiResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import ui.MainScreen
+import screen.AgentsScreen
+import screen.MainScreen
+import utils.Coroutines
 
 @Composable
 fun App() {
     val agents = MutableStateFlow(ArrayList<ValorantApiResponse.Data>())
-    MaterialTheme {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = MainRepository(ApiHelper.client).getEntries()
-            when (result) {
-                is ApiResult.APIError -> {
+    Coroutines.io {
+        val result = MainRepository(ApiHelper.client).getEntries()
+        when (result) {
+            is ApiResult.APIError -> {
 
-                }
-
-                is ApiResult.Error -> {
-
-                }
-
-                is ApiResult.Success -> {
-                    agents.emit(result.data.data)
-                }
             }
 
-        }
+            is ApiResult.Error -> {
 
+            }
+
+            is ApiResult.Success -> {
+                agents.emit(result.data.data)
+            }
+        }
+    }
+
+    MaterialTheme {
         if (agents.collectAsState().value.size == 0) {
             Box(
                 modifier = Modifier.fillMaxSize().background(ui.Color.colorBackground),
@@ -48,8 +51,7 @@ fun App() {
                 CircularProgressIndicator()
             }
         } else {
-            MainScreen(agents.collectAsState().value)
-            //AgentsScreen(agents.collectAsState().value)
+            Navigator(MainScreen(agents.collectAsState().value))
         }
 
 

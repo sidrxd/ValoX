@@ -47,6 +47,8 @@ kotlin {
                 api("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
                 api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
                 api("io.github.qdsfdhvh:image-loader:1.6.4")
+                val voyagerVersion = "1.0.0-rc06"
+                api("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
 
             }
         }
