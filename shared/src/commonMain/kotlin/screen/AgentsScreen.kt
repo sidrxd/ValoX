@@ -1,7 +1,5 @@
 package screen
 
-import androidx.compose.animation.core.SnapSpec
-import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -29,7 +27,6 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import connection.ValorantApiResponse
 import io.kamel.image.KamelImage
@@ -40,7 +37,10 @@ import utils.Utils.hexToColor
 
 @OptIn(ExperimentalFoundationApi::class)
 
-class AgentsScreen(private val agentList: ArrayList<ValorantApiResponse.Data>,private val pos: Int) : Screen {
+class AgentsScreen(
+    private val agentList: ArrayList<ValorantApiResponse.Data>,
+    private val pos: Int
+) : Screen {
     @Composable
     override fun Content() {
         val pagerState = rememberPagerState(pos)
@@ -117,9 +117,9 @@ class AgentsScreen(private val agentList: ArrayList<ValorantApiResponse.Data>,pr
                                     modifier = Modifier.scale(1.3f).clickable {
 
                                     }.graphicsLayer {
-                                    scaleX = dpSize
-                                    scaleY = dpSize
-                                })
+                                        scaleX = dpSize
+                                        scaleY = dpSize
+                                    })
                             }
 
                     }
