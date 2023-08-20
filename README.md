@@ -1,13 +1,16 @@
 # ValoX
-ValoX is Compose multiplatform project, built with Compose multiplatform, Coroutines, Flow, Voyager, MVIKotlin, Koin, Ktor, and Material 3
+ValoX is Compose multiplatform project, built with Compose multiplatform, Coroutines, Flow, Voyager, Ktor, and Material 3
+
+![image](https://github.com/sidrxd/ValoX/assets/25636564/156d9943-da30-493b-a453-640cef582422)
 
 ## Supported Platforms
-- Platforms Supported : Android, Desktop, iOS, MacOS
+- Android, Desktop, iOS, MacOS
 
 <br>
 
 ## App features
-- Showcasing valorant features 
+- Showcasing valorant features
+- All agents and abilities
 
 <br>
 
