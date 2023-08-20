@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import ui.Color
+import ui.MenuScreenLayout
 import utils.Coroutines
 import utils.Utils
 
@@ -45,16 +46,19 @@ class MainScreen(private val agentList: ArrayList<ValorantApiResponse.Data>) : S
         val navigator = LocalNavigator.current
         val isAgentVisible = remember { MutableStateFlow(false) }
         val openAgentList = remember { MutableStateFlow(0) }
+
         Column(
             modifier = Modifier.fillMaxSize().background(Color.colorBackground).padding(16.dp)
         ) {
-
             Spacer(modifier = Modifier.padding(0.dp, 16.dp))
+
             Text(
                 text = "ValoX", fontSize = 48.sp,
                 fontWeight = FontWeight(800),
                 color = Utils.hexToColor("FF4654")
             )
+            MenuScreenLayout()
+
             Spacer(modifier = Modifier.padding(0.dp, 8.dp))
 
             LazyVerticalGrid(

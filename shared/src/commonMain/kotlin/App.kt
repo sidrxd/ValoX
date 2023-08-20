@@ -1,3 +1,4 @@
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import screen.MainScreen
 import utils.Coroutines
 import utils.Utils
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun App() {
     val agents = MutableStateFlow(ArrayList<ValorantApiResponse.Data>())
