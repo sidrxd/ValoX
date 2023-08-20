@@ -21,6 +21,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import screen.ComingSoonScreen
 import screen.cards.CardScreen
+import screen.weapons.WeaponScreen
 import utils.Utils
 
 
@@ -43,6 +44,11 @@ fun MenuScreenLayout() {
                     when(list[it].title){
                         "Cards" ->{
                             navigator?.push(CardScreen())
+
+                        }
+
+                        "Weapons" ->{
+                            navigator?.push(WeaponScreen())
 
                         }
                         else ->{
@@ -70,3 +76,10 @@ data class MenuModel(
     val title: String,
     val icon: String? = null
 )
+
+enum class MENU_CAT {
+    WEAPONS,
+    BUDDIES,
+    BUNDLES,
+    CARDS
+}
