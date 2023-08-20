@@ -1,5 +1,7 @@
 package screen
 
+import androidx.compose.animation.core.SnapSpec
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -56,6 +58,11 @@ class AgentsScreen(private val agentList: ArrayList<ValorantApiResponse.Data>,pr
                     targetValue = if (pageOffset != 0.0f) 0.95f else 1f,
                     animationSpec = tween(durationMillis = 200)
                 )
+
+                val dpSize by animateFloatAsState(
+                    targetValue = if (pageOffset != 0.0f) 0.75f else 1f,
+                    animationSpec = tween(durationMillis = 200)
+                )
                 val agent = agentList[page]
                 val name = agent.displayName
                 val info = agent.description
@@ -109,7 +116,10 @@ class AgentsScreen(private val agentList: ArrayList<ValorantApiResponse.Data>,pr
                                     contentDescription = null,
                                     modifier = Modifier.scale(1.3f).clickable {
 
-                                    })
+                                    }.graphicsLayer {
+                                    scaleX = dpSize
+                                    scaleY = dpSize
+                                })
                             }
 
                     }
