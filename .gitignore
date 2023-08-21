@@ -13,3 +13,6 @@ iosApp/iosApp.xcworkspace/*
 iosApp/iosApp.xcodeproj/*
 !iosApp/iosApp.xcodeproj/project.pbxproj
 shared/shared.podspec
+/androidApp/valox.jks
+/androidApp/release/androidApp-release.apk
+/androidApp/release/output-metadata.json
