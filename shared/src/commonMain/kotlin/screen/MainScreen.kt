@@ -32,7 +32,7 @@ import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import ui.Color
+import ui.theme.Color
 import ui.MenuScreenLayout
 import utils.Coroutines
 import utils.Utils

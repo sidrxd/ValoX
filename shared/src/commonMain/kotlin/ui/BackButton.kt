@@ -29,7 +29,7 @@ fun BackButton(
         modifier = Modifier.padding(
             16.dp,
             48.dp
-        )/*.background(color = ui.Color.colorBackground, shape = RoundedCornerShape(56.dp))*/
+        )/*.background(color = ui.theme.Color.colorBackground, shape = RoundedCornerShape(56.dp))*/
             .width(36.dp).height(36.dp).padding(4.dp)
             .clickable {
                onClick()

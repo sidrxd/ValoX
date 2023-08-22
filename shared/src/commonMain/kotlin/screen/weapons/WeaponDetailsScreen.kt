@@ -27,7 +27,7 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.WeaponsResponse
 import ui.BackButton
-import ui.Color
+import ui.theme.Color
 
 class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
 

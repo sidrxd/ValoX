@@ -23,11 +23,15 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.flow.MutableStateFlow
+import model.WeaponsResponse
 import ui.BackButton
-import ui.Color
+import ui.ShimmerAnimation
+import ui.theme.Color
+import ui.theme.Dimens
 
 class WeaponScreen : Screen {
     @Composable
@@ -39,37 +43,51 @@ class WeaponScreen : Screen {
         Box(modifier = Modifier.fillMaxSize().background(color = Color.colorBackground)) {
             weaponsScreenModel.getWeapons()
             val weapons = weaponsScreenModel.weapons.collectAsState().value
-
-            LazyColumn(modifier = Modifier.padding(0.dp, 72.dp, 0.dp, 0.dp)) {
-                items(weapons.size) {
-                    val weapon = weapons[it]
-                    Box(
-                        modifier = Modifier.padding(16.dp).background(
-                            Color.colorSurface,
-                            RoundedCornerShape(16.dp)
-                        ).height(120.dp).fillMaxWidth().clickable {
-                              navigator?.push(WeaponDetailsScreen(weapon))
-                        }, contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            text = weapon.displayName.toString().toUpperCase(Locale.current),
-                            fontSize = 38.sp,
-                            color = Color.titleText,
-                            fontWeight = FontWeight(800),
-                            modifier = Modifier.padding(16.dp),
-                        )
-                        KamelImage(
-                            asyncPainterResource(weapon.displayIcon.toString()),
-                            null,
-                            modifier = Modifier.padding(16.dp)
-                        )
-
+            if (weapons.size ==0){
+                LazyColumn(modifier = Modifier.padding(0.dp, 72.dp, 0.dp, 0.dp)){
+                    items(10){
+                        ShimmerAnimation(Dimens.DP_120)
                     }
                 }
+            }else {
+                showWeapons(weapons, navigator)
             }
-
             BackButton {
                 navigator?.pop()
+            }
+        }
+    }
+}
+
+@Composable
+fun showWeapons(
+    weapons: ArrayList<WeaponsResponse.Data>,
+    navigator: Navigator?
+) {
+    LazyColumn(modifier = Modifier.padding(0.dp, 72.dp, 0.dp, 0.dp)) {
+        items(weapons.size) {
+            val weapon = weapons[it]
+            Box(
+                modifier = Modifier.padding(16.dp).background(
+                    Color.colorSurface,
+                    RoundedCornerShape(16.dp)
+                ).height(120.dp).fillMaxWidth().clickable {
+                    navigator?.push(WeaponDetailsScreen(weapon))
+                }, contentAlignment = Alignment.CenterStart
+            ) {
+                Text(
+                    text = weapon.displayName.toString().toUpperCase(Locale.current),
+                    fontSize = 38.sp,
+                    color = Color.titleText,
+                    fontWeight = FontWeight(800),
+                    modifier = Modifier.padding(16.dp),
+                )
+                KamelImage(
+                    asyncPainterResource(weapon.displayIcon.toString()),
+                    null,
+                    modifier = Modifier.padding(16.dp)
+                )
+
             }
         }
     }

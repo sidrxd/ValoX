@@ -32,7 +32,7 @@ import connection.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import ui.AbilitiesScreen
-import ui.Color
+import ui.theme.Color
 import utils.Utils.hexToColor
 
 @OptIn(ExperimentalFoundationApi::class)

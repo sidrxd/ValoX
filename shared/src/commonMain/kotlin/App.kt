@@ -19,6 +19,7 @@ import connection.MainRepository
 import connection.ValorantApiResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import screen.MainScreen
+import ui.theme.Color
 import utils.Coroutines
 import utils.Utils
 
@@ -46,7 +47,7 @@ fun App() {
     MaterialTheme {
         if (agents.collectAsState().value.size == 0) {
             Box(
-                modifier = Modifier.fillMaxSize().background(ui.Color.colorBackground),
+                modifier = Modifier.fillMaxSize().background(Color.colorBackground),
                 contentAlignment = Alignment.Center
             ) {
                 Column {
@@ -56,7 +57,7 @@ fun App() {
                         fontWeight = FontWeight(800),
                         color = Utils.hexToColor("FF4654")
                     )
-                    LinearProgressIndicator(color = ui.Color.titleText)
+                    LinearProgressIndicator(color = Color.titleText)
 
                 }
             }

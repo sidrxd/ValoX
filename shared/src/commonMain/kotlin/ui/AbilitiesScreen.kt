@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import connection.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import ui.theme.Color
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
