@@ -43,8 +43,10 @@ kotlin {
                 implementation("media.kamel:kamel-image:0.7.1")
                 api("io.ktor:ktor-client-core:2.3.3")
                 api("io.ktor:ktor-client-cio:2.3.3")
-                api("io.ktor:ktor-client-content-negotiation:2.3.3")
-                api("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
+                val ktor_version = "2.3.3"
+                api("io.ktor:ktor-client-logging:$ktor_version")
+                api("io.ktor:ktor-client-content-negotiation:$ktor_version")
+                api("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
                 api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
                 api("io.github.qdsfdhvh:image-loader:1.6.4")
                 val voyagerVersion = "1.0.0-rc06"

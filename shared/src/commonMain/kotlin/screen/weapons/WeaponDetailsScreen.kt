@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -27,7 +28,9 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.WeaponsResponse
 import ui.BackButton
+import ui.StatComponent
 import ui.theme.Color
+import ui.theme.Dimens
 
 class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
 
@@ -66,8 +69,25 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
                 val state = rememberPagerState(0)
                 val pageCount = weapon.skins!!.size
 
-                Column(modifier = Modifier.height(220.dp).padding(16.dp).fillMaxWidth()) {
+                Column(modifier = Modifier.heightIn(Dimens.DP_220).padding(16.dp).fillMaxWidth()) {
                     Spacer(modifier = Modifier.padding(8.dp))
+
+                    Text(
+                        text = "SKINS",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color.primaryText
+
+                    )
+                    Spacer(modifier = Modifier.padding(Dimens.DP_16))
+                    Text(
+                        text = "STATS",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color.primaryText
+
+                    )
+                    Stats(weapon.weaponStats)
                     Text(
                         text = "SKINS",
                         fontSize = 16.sp,
@@ -95,4 +115,19 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
             }
         }
     }
+}
+
+@Composable
+fun Stats(stats: WeaponsResponse.Data.WeaponStats?) {
+    Column (modifier = Modifier.background(Color.colorSurface, shape = RoundedCornerShape(Dimens.DP_16))){
+        stats?.run {
+            StatComponent(title = "Magazine size", statValue = magazineSize.toString())
+            StatComponent(title = "Fire rate", statValue = fireRate.toString())
+            StatComponent(title = "Run speed", statValue = runSpeedMultiplier.toString())
+            StatComponent(title = "First bullet accuracy", statValue = firstBulletAccuracy.toString())
+            StatComponent(title = "Wall penetration", statValue = wallPenetration.toString())
+
+        }
+    }
+
 }

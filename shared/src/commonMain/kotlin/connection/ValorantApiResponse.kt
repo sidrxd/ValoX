@@ -14,17 +14,17 @@ data class ValorantApiResponse(
     @Serializable
     data class Data(
         @SerialName("abilities")
-        val abilities: List<Ability?>?,
+        val abilities: ArrayList<Ability?>?,
         @SerialName("assetPath")
         val assetPath: String?,
         @SerialName("background")
         val background: String?,
         @SerialName("backgroundGradientColors")
-        val backgroundGradientColors: List<String?>?,
+        val backgroundGradientColors: ArrayList<String?>?,
         @SerialName("bustPortrait")
         val bustPortrait: String?,
         @SerialName("characterTags")
-        val characterTags: List<String?>?,
+        val characterTags: ArrayList<String?>?,
         @SerialName("description")
         val description: String?,
         @SerialName("developerName")
@@ -49,6 +49,8 @@ data class ValorantApiResponse(
         val isPlayableCharacter: Boolean?,
         @SerialName("killfeedPortrait")
         val killfeedPortrait: String?,
+        @SerialName("recruitmentData")
+        val recruitmentData: RecruitmentData?,
         @SerialName("role")
         val role: Role?,
         @SerialName("uuid")
@@ -66,6 +68,24 @@ data class ValorantApiResponse(
             val displayName: String?,
             @SerialName("slot")
             val slot: String?
+        )
+
+        @Serializable
+        data class RecruitmentData(
+            @SerialName("counterId")
+            val counterId: String?,
+            @SerialName("endDate")
+            val endDate: String?,
+            @SerialName("levelVpCostOverride")
+            val levelVpCostOverride: Int?,
+            @SerialName("milestoneId")
+            val milestoneId: String?,
+            @SerialName("milestoneThreshold")
+            val milestoneThreshold: Int?,
+            @SerialName("startDate")
+            val startDate: String?,
+            @SerialName("useLevelVpCostOverride")
+            val useLevelVpCostOverride: Boolean?
         )
 
         @Serializable
