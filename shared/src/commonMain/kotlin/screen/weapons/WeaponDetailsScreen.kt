@@ -70,6 +70,16 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
                 val pageCount = weapon.skins!!.size
 
                 Column(modifier = Modifier.heightIn(Dimens.DP_220).padding(16.dp).fillMaxWidth()) {
+                    Text(
+                        text = "STATS",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color.primaryText
+
+                    )
+                    Spacer(modifier = Modifier.padding(8.dp))
+
+                    Stats(weapon.weaponStats)
                     Spacer(modifier = Modifier.padding(8.dp))
 
                     Text(
@@ -79,22 +89,8 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
                         color = Color.primaryText
 
                     )
-                    Spacer(modifier = Modifier.padding(Dimens.DP_16))
-                    Text(
-                        text = "STATS",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight(600),
-                        color = Color.primaryText
+                    Spacer(modifier = Modifier.padding(8.dp))
 
-                    )
-                    Stats(weapon.weaponStats)
-                    Text(
-                        text = "SKINS",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight(600),
-                        color = Color.primaryText
-
-                    )
                     HorizontalPager(pageCount, state = state) {
 
                         Spacer(modifier = Modifier.padding(8.dp))
@@ -125,8 +121,6 @@ fun Stats(stats: WeaponsResponse.Data.WeaponStats?) {
             StatComponent(title = "Fire rate", statValue = fireRate.toString())
             StatComponent(title = "Run speed", statValue = runSpeedMultiplier.toString())
             StatComponent(title = "First bullet accuracy", statValue = firstBulletAccuracy.toString())
-            StatComponent(title = "Wall penetration", statValue = wallPenetration.toString())
-
         }
     }
 

@@ -20,7 +20,7 @@ fun StatComponent(
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth().padding(Dimens.DP_16)
+        modifier = modifier.fillMaxWidth().padding(Dimens.DP_16,Dimens.DP_8)
     ) {
         Text(text = title, color = Color.primaryText)
         Text(text = statValue, color = Color.primaryText)

@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.0"
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("io.realm.kotlin") version "1.10.0"
 
 }
 
@@ -41,6 +42,7 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation("media.kamel:kamel-image:0.7.1")
+                api("io.realm.kotlin:library-base:1.10.0")
                 api("io.ktor:ktor-client-core:2.3.3")
                 api("io.ktor:ktor-client-cio:2.3.3")
                 val ktor_version = "2.3.3"
@@ -51,7 +53,6 @@ kotlin {
                 api("io.github.qdsfdhvh:image-loader:1.6.4")
                 val voyagerVersion = "1.0.0-rc06"
                 api("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-
             }
         }
 
