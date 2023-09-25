@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,11 +44,16 @@ class AgentsScreen(
 ) : Screen {
     @Composable
     override fun Content() {
-        val pagerState = rememberPagerState(pos)
+        val pagerState = rememberPagerState(
+            initialPage = 4,
+            initialPageOffsetFraction = 0f
+        ) {
+            4
+        }
         println(pos)
+
         Column {
             VerticalPager(
-                agentList.size,
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()
             ) { page ->
@@ -129,12 +135,15 @@ class AgentsScreen(
                             .padding(16.dp)
                     ) {
 
-                        Text(
-                            text = "BIOGRAPHY",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(600),
-                            color = Color.primaryText
-                        )
+                        Row {
+                            Text(
+                                text = "BIOGRAPHY",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight(600),
+                                color = Color.primaryText
+                            )
+                        }
+
                         Text(
                             text = info.toString(),
                             fontSize = 14.sp,

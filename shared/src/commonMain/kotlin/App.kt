@@ -23,7 +23,6 @@ import ui.theme.Color
 import utils.Coroutines
 import utils.Utils
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun App() {
     val agents = MutableStateFlow(ArrayList<ValorantApiResponse.Data>())

@@ -1,6 +1,7 @@
 package utils
 
 import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 
 object RealmDatabase {
 

@@ -30,8 +30,9 @@ import ui.theme.Color
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AbilitiesScreen(agent: ValorantApiResponse.Data?) {
-    val abilityPagerState = rememberPagerState(0)
     val pageCount = agent!!.abilities!!.size
+
+    val abilityPagerState = rememberPagerState(0,0f) { pageCount }
 
     Row(
         Modifier
@@ -53,7 +54,7 @@ fun AbilitiesScreen(agent: ValorantApiResponse.Data?) {
         }
     }
 
-    HorizontalPager(pageCount, state = abilityPagerState) {
+    HorizontalPager(state = abilityPagerState, modifier = Modifier){
         Column(modifier = Modifier.fillMaxSize()) {
             Row {
                 agent.abilities?.get(it)!!.displayIcon?.let { it1 ->

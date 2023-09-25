@@ -2,8 +2,10 @@ package screen.weapons
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.PagerScope
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -66,7 +71,12 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
 
                 }
 
-                val state = rememberPagerState(0)
+                val state = rememberPagerState(
+                    initialPage = 0,
+                    initialPageOffsetFraction = 0f
+                ) {
+                    weapon.skins!!.size
+                }
                 val pageCount = weapon.skins!!.size
 
                 Column(modifier = Modifier.heightIn(Dimens.DP_220).padding(16.dp).fillMaxWidth()) {
@@ -91,17 +101,30 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
 
-                    HorizontalPager(pageCount, state = state) {
-
-                        Spacer(modifier = Modifier.padding(8.dp))
-
-                        KamelImage(
-                            asyncPainterResource(weapon.skins[it]?.displayIcon.toString()),
-                            null,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                        Spacer(modifier = Modifier.padding(8.dp))
-                    }
+                    HorizontalPager(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state,
+                        pageSpacing = 16.dp,
+                        userScrollEnabled = true,
+                        reverseLayout = false,
+                        contentPadding = PaddingValues(0.dp),
+                        beyondBoundsPageCount = 0,
+                        pageSize = PageSize.Fill,
+                        flingBehavior = PagerDefaults.flingBehavior(state = state),
+                        key = null,
+                        pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
+                            Orientation.Horizontal
+                        ),
+                        pageContent =  {
+                            Spacer(modifier = Modifier.padding(8.dp))
+                            KamelImage(
+                                asyncPainterResource(weapon.skins[it]?.displayIcon.toString()),
+                                null,
+                                modifier = Modifier.padding(16.dp)
+                            )
+                            Spacer(modifier = Modifier.padding(8.dp))
+                        }
+                    )
                 }
 
 

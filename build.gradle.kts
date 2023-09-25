@@ -6,3 +6,15 @@ plugins {
     id("com.android.library").apply(false)
     id("org.jetbrains.compose").apply(false)
 }
+
+subprojects {
+    afterEvaluate{
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
+            if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
+                kotlinOptions.jvmTarget = "17"
+            } else {
+                kotlinOptions.jvmTarget = "17"
+            }
+        }
+    }
+}
