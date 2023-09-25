@@ -45,10 +45,10 @@ class AgentsScreen(
     @Composable
     override fun Content() {
         val pagerState = rememberPagerState(
-            initialPage = 4,
+            initialPage = 0,
             initialPageOffsetFraction = 0f
         ) {
-            4
+            agentList.size
         }
         println(pos)
 
