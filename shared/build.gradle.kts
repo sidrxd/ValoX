@@ -38,7 +38,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation("media.kamel:kamel-image:0.7.3")
                 api("io.realm.kotlin:library-base:1.10.0")
-                api("io.ktor:ktor-client-core:2.3.3")
+                api("io.ktor:ktor-client-core:2.3.4")
                 api("io.ktor:ktor-client-cio:2.3.3")
                 val ktorVersion = "2.3.3"
                 api("io.ktor:ktor-client-logging:$ktorVersion")
@@ -53,7 +53,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
+                api("androidx.activity:activity-compose:1.8.0")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
             }
