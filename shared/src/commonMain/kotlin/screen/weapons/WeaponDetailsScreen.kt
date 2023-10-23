@@ -2,20 +2,15 @@ package screen.weapons
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.PagerScope
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -32,6 +27,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.WeaponsResponse
+import screen.weapons.skins.SkinScreen
 import ui.BackButton
 import ui.StatComponent
 import ui.theme.Color
@@ -96,35 +92,16 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
                         text = "SKINS",
                         fontSize = 16.sp,
                         fontWeight = FontWeight(600),
-                        color = Color.primaryText
+                        color = Color.primaryText,
+                        modifier = Modifier.clickable {
+                            navigator?.push(SkinScreen(weapon.skins))
+                        }.fillMaxWidth().background(
+                            Color.colorSurface,
+                            shape = RoundedCornerShape(Dimens.DP_16)
+                        ).padding(Dimens.DP_16)
 
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
-
-                    HorizontalPager(
-                        modifier = Modifier.fillMaxWidth(),
-                        state = state,
-                        pageSpacing = 16.dp,
-                        userScrollEnabled = true,
-                        reverseLayout = false,
-                        contentPadding = PaddingValues(0.dp),
-                        beyondBoundsPageCount = 0,
-                        pageSize = PageSize.Fill,
-                        flingBehavior = PagerDefaults.flingBehavior(state = state),
-                        key = null,
-                        pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
-                            Orientation.Horizontal
-                        ),
-                        pageContent =  {
-                            Spacer(modifier = Modifier.padding(8.dp))
-                            KamelImage(
-                                asyncPainterResource(weapon.skins[it]?.displayIcon.toString()),
-                                null,
-                                modifier = Modifier.padding(16.dp)
-                            )
-                            Spacer(modifier = Modifier.padding(8.dp))
-                        }
-                    )
                 }
 
 
@@ -138,12 +115,20 @@ class WeaponDetailsScreen(private val weapon: WeaponsResponse.Data) : Screen {
 
 @Composable
 fun Stats(stats: WeaponsResponse.Data.WeaponStats?) {
-    Column (modifier = Modifier.background(Color.colorSurface, shape = RoundedCornerShape(Dimens.DP_16))){
+    Column(
+        modifier = Modifier.background(
+            Color.colorSurface,
+            shape = RoundedCornerShape(Dimens.DP_16)
+        )
+    ) {
         stats?.run {
             StatComponent(title = "Magazine size", statValue = magazineSize.toString())
             StatComponent(title = "Fire rate", statValue = fireRate.toString())
             StatComponent(title = "Run speed", statValue = runSpeedMultiplier.toString())
-            StatComponent(title = "First bullet accuracy", statValue = firstBulletAccuracy.toString())
+            StatComponent(
+                title = "First bullet accuracy",
+                statValue = firstBulletAccuracy.toString()
+            )
         }
     }
 
