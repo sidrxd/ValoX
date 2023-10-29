@@ -1,4 +1,4 @@
-rootProject.name = "Valogent"
+rootProject.name = "valoX"
 
 include(":androidApp")
 include(":shared")
