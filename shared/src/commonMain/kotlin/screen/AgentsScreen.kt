@@ -29,7 +29,7 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import connection.ValorantApiResponse
+import model.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import ui.AbilitiesScreen

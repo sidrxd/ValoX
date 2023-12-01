@@ -17,9 +17,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
 import connection.ApiHelper
-import connection.ApiResult
+import connection.NetworkResult
 import connection.MainRepository
-import connection.ValorantApiResponse
+import model.ValorantApiResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -34,15 +34,14 @@ fun App() {
     val agents = MutableStateFlow(ArrayList<ValorantApiResponse.Data>())
     Coroutines.io {
         when (val result = MainRepository(ApiHelper.client).getEntries()) {
-            is ApiResult.APIError -> {
+            is NetworkResult.NetworkError -> {
+
+            }
+            is NetworkResult.Loading -> {
 
             }
 
-            is ApiResult.Error -> {
-
-            }
-
-            is ApiResult.Success -> {
+            is NetworkResult.Success -> {
                 agents.emit(result.data.data)
             }
         }

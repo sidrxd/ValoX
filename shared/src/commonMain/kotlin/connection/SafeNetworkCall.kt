@@ -1,26 +1,25 @@
 package connection
 
 
-import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 
-open class SafeApiCall {
+open class SafeNetworkCall {
 
     suspend inline fun <reified T : Any> safeApiCall(
         call: () -> HttpResponse,
         errorMessage: String
-    ): ApiResult<T> {
+    ): NetworkResult<T> {
 
         return try {
             val response = call.invoke()
             if (response.status.value == 200) {
                 val obj = Json.decodeFromString<T>(response.bodyAsText())
-                ApiResult.Success(obj)
+                NetworkResult.Success(obj)
             } else {
                 val error = response.status
-                ApiResult.APIError(
+                NetworkResult.NetworkError(
                     error.toString()
                     /* errorResponse(
                          JsonObject(
@@ -32,7 +31,7 @@ open class SafeApiCall {
 
         } catch (e: Exception) {
             e.printStackTrace()
-            ApiResult.Error(Exception("$errorMessage: ${e.message}"))
+            NetworkResult.NetworkError("$errorMessage: ${e.message}")
         }
     }
 

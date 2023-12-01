@@ -2,7 +2,7 @@ package screen.weapons
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import connection.ApiHelper
-import connection.ApiResult
+import connection.NetworkResult
 import connection.MainRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import model.WeaponsResponse
@@ -19,15 +19,15 @@ class WeaponsScreenModel : ScreenModel {
         Coroutines.io {
             val result = repository.getWeapons()
             when (result) {
-                is ApiResult.APIError -> {
+                is NetworkResult.NetworkError -> {
 
                 }
 
-                is ApiResult.Error -> {
+                is NetworkResult.Loading -> {
 
                 }
 
-                is ApiResult.Success -> {
+                is NetworkResult.Success -> {
                     weapons.emit(result.data.data)
                 }
             }

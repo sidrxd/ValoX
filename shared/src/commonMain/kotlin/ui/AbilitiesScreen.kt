@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import connection.ValorantApiResponse
+import model.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import ui.theme.Color
