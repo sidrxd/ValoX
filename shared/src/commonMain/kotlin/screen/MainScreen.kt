@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import model.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -106,9 +109,12 @@ class MainScreen(private val agentList: ArrayList<ValorantApiResponse.Data>) : S
                     }
                 }
             }
-            if (isAgentVisible.collectAsState().value) {
-                navigator?.push(AgentsScreen(agentList, openAgentList.collectAsState().value))
-                println(openAgentList.collectAsState().value)
+
+            LaunchedEffect(isAgentVisible.collectAsState().value){
+                if (isAgentVisible.value){
+                    navigator?.push(AgentsScreen(agentList, openAgentList.value))
+                }
+
             }
 
 

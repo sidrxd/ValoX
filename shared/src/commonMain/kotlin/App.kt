@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import connection.ApiHelper
 import connection.NetworkResult
 import connection.MainRepository
@@ -71,7 +72,9 @@ fun App() {
                 }
             }
         } else {
-            Navigator(MainScreen(agents.collectAsState().value))
+            Navigator(MainScreen(agents.collectAsState().value)){
+                SlideTransition(navigator = it)
+            }
         }
 
 
