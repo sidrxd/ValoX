@@ -1,4 +1,4 @@
-# ValoX
+# ValoX - KMM Application
 ValoX is Compose multiplatform project, built with Compose multiplatform, Coroutines, Flow, Voyager, Ktor, and Material 3
 
 ![image](https://github.com/sidrxd/ValoX/assets/25636564/156d9943-da30-493b-a453-640cef582422)
