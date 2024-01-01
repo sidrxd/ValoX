@@ -29,10 +29,12 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
 import model.ValorantApiResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import ui.AbilitiesScreen
+import ui.BackButton
 import ui.theme.Color
 import utils.Utils.hexToColor
 
@@ -44,6 +46,8 @@ class AgentsScreen(
 ) : Screen {
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.current
+
         val pagerState = rememberPagerState(
             initialPage = pos,
             initialPageOffsetFraction = 0f
@@ -53,121 +57,128 @@ class AgentsScreen(
         println(pos)
 
         Column {
-            VerticalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { page ->
-                val pageOffset =
-                    (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
 
-                val layoutSize by animateFloatAsState(
-                    targetValue = if (pageOffset != 0.0f) 0.95f else 1f,
-                    animationSpec = tween(durationMillis = 200)
-                )
+            Box(modifier = Modifier.fillMaxSize()){
 
-                val dpSize by animateFloatAsState(
-                    targetValue = if (pageOffset != 0.0f) 0.75f else 1f,
-                    animationSpec = tween(durationMillis = 200)
-                )
-                val agent = agentList[page]
-                val name = agent.displayName
-                val info = agent.description
-                val role = agent.role?.displayName
-                val dp = agent.fullPortrait
-                val background = agent.background
-                val gradient = Brush.linearGradient(
-                    listOf(
-                        hexToColor("1C252E"), hexToColor("1C252E")
+                VerticalPager(
+                    state = pagerState,
+                    modifier = Modifier.fillMaxSize()
+                ) { page ->
+                    val pageOffset =
+                        (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
+
+                    val layoutSize by animateFloatAsState(
+                        targetValue = if (pageOffset != 0.0f) 0.95f else 1f,
+                        animationSpec = tween(durationMillis = 200)
                     )
-                )
-                Column(
-                    modifier = Modifier.fillMaxSize().background(
-                        gradient
-                    ).padding(0.dp, 24.dp, 0.dp, 0.dp).graphicsLayer {
-                        scaleX = layoutSize
-                        scaleY = layoutSize
-                    }
-                ) {
-                    Box(
-                        modifier = Modifier.height(440.dp)
 
+                    val dpSize by animateFloatAsState(
+                        targetValue = if (pageOffset != 0.0f) 0.75f else 1f,
+                        animationSpec = tween(durationMillis = 200)
+                    )
+                    val agent = agentList[page]
+                    val name = agent.displayName
+                    val info = agent.description
+                    val role = agent.role?.displayName
+                    val dp = agent.fullPortrait
+                    val background = agent.background
+                    val gradient = Brush.linearGradient(
+                        listOf(
+                            hexToColor("1C252E"), hexToColor("1C252E")
+                        )
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxSize().background(
+                            gradient
+                        ).padding(0.dp, 24.dp, 0.dp, 0.dp).graphicsLayer {
+                            scaleX = layoutSize
+                            scaleY = layoutSize
+                        }
                     ) {
-                        background?.let { asyncPainterResource(it) }?.let {
-                            KamelImage(
-                                it,
-                                contentDescription = null,
-                                modifier = Modifier.alpha(0.05f).fillMaxWidth().scale(2.5f)
-                            )
-                        }
-
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(
-                                text = name.toString().toUpperCase(Locale.current),
-                                fontSize = 56.sp,
-                                fontWeight = FontWeight(800),
-                                color = hexToColor("FF4654")
-                            )
-                            Text(
-                                text = role.toString(),
-                                fontSize = 16.sp,
-                                color = Color.secondaryText
-
-                            )
-                        }
-
-                        dp?.let { asyncPainterResource(it) }
-                            ?.let {
+                        Box(
+                            modifier = Modifier.height(440.dp)
+                        ) {
+                            background?.let { asyncPainterResource(it) }?.let {
                                 KamelImage(
                                     it,
                                     contentDescription = null,
-                                    modifier = Modifier.scale(1.3f).clickable {
-
-                                    }.graphicsLayer {
-                                        scaleX = dpSize
-                                        scaleY = dpSize
-                                    })
+                                    modifier = Modifier.alpha(0.05f).fillMaxWidth().scale(2.5f)
+                                )
                             }
 
-                    }
+                            Column(modifier = Modifier.padding(start = 16.dp,top = 42.dp, end = 16.dp, bottom = 16.dp)) {
+                                Text(
+                                    text = name.toString().toUpperCase(Locale.current),
+                                    fontSize = 60.sp,
+                                    fontWeight = FontWeight(900),
+                                    color = hexToColor("FF4654")
+                                )
+                                Text(
+                                    text = role.toString(),
+                                    fontSize = 16.sp,
+                                    color = Color.secondaryText
 
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                    ) {
+                                )
+                            }
+                            dp?.let { asyncPainterResource(it) }
+                                ?.let {
+                                    KamelImage(
+                                        it,
+                                        contentDescription = null,
+                                        modifier = Modifier.scale(1.3f).clickable {
 
-                        Row {
+                                        }.graphicsLayer {
+                                            scaleX = dpSize
+                                            scaleY = dpSize
+                                        })
+                                }
+
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .padding(16.dp)
+                        ) {
+
+                            Row {
+                                Text(
+                                    text = "BIOGRAPHY",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight(600),
+                                    color = Color.primaryText
+                                )
+                            }
+
                             Text(
-                                text = "BIOGRAPHY",
+                                text = info.toString(),
+                                fontSize = 14.sp,
+                                color = Color.secondaryText
+
+                            )
+
+                            Spacer(modifier = Modifier.padding(8.dp))
+                            Text(
+                                text = "ABILITIES",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight(600),
                                 color = Color.primaryText
+
                             )
+
+                            AbilitiesScreen(agent)
+
+
                         }
-
-                        Text(
-                            text = info.toString(),
-                            fontSize = 14.sp,
-                            color = Color.secondaryText
-
-                        )
-
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        Text(
-                            text = "ABILITIES",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(600),
-                            color = Color.primaryText
-
-                        )
-
-                        AbilitiesScreen(agent)
-
-
                     }
+
+
                 }
 
-
+                BackButton {
+                    navigator?.pop()
+                }
             }
+
 
         }
 
